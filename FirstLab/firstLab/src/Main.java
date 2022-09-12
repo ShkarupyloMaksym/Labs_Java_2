@@ -73,7 +73,7 @@ class StringCalculator{
     }
 
     private void SeparatorsInit(){
-        Separators = new ArrayList<String>();
+        Separators = new ArrayList<>();
         Separators.add(",");
         Separators.add("\n");
     }
@@ -124,16 +124,16 @@ public class Main {
             System.out.println(new StringCalculator().add("1000,-999,-1001"));
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
-        /*try {
+        try {
             System.out.println(new StringCalculator().add("1000,999,"));
         }
         catch (Exception e){
-            System.out.println(e);
-        }*/
-        System.out.println(new StringCalculator().add("1000,999,\n1000"));
+            System.out.println(e.getMessage());
+        }
+
 
     }
 }
