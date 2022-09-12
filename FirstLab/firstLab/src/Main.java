@@ -7,6 +7,8 @@ class StringCalculator{
         SeparatorsInit();
     }
     public int add(String numbers) throws Exception {
+        if (numbers.isEmpty()) return 0;
+
         List<Integer> number = new ArrayList<>();
 
         if (ShouldSeparatorsAdd(numbers)){
@@ -117,23 +119,33 @@ class StringCalculator{
 }
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        System.out.println(new StringCalculator().add("//[*][%]\n1*2%3"));
-        System.out.println(new StringCalculator().add("//[**][***]\n1**2***3"));
+    private static String answer(StringCalculator calculator, String msg){
         try {
-            System.out.println(new StringCalculator().add("1000,-999,-1001"));
+            return String.valueOf(calculator.add(msg));
+        } catch (Exception e) {
+            return e.getMessage();
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+    }
 
-        try {
-            System.out.println(new StringCalculator().add("1000,999,"));
+    public static void main(String[] args) {
+        StringCalculator calculator = new StringCalculator();
+        String[][] questions = {
+                {"","1", "1,2"},
+                {"1,2,3,4,5"},
+                {"1\n2,3", "1,\n"},
+                {"//;\n1;2"},
+                {"-1,1,-2,3,4,-100"},
+                {"1000,999,1001"},
+                {"//[**][*]\n1*2**3"},
+                {"//[*][%]\n1*2%3"},
+                {"//[**][***]\n1**2***3"}
+        };
+        for (int questionNumber = 0; questionNumber<questions.length;questionNumber++){
+            System.out.println("Крок "+(questionNumber+1));
+            for (String question: questions[questionNumber]) {
+                System.out.println(question.replace("\n","\\n") + " = " + answer(calculator, question));
+            }
+            System.out.println("________________________________________");
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-
     }
 }
