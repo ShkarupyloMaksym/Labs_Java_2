@@ -1,10 +1,6 @@
 import java.util.*;
 
 class StringCalculator{
-    private void isDigit(char chr){
-
-    }
-
     List<String> Separators;
 
     public StringCalculator(){
@@ -53,20 +49,23 @@ class StringCalculator{
 
     private String CheckSeparators(String numbers) throws Exception {
         for (String str: Separators){
-            if (str.equals(numbers.substring(0,str.length())) && IsNumber(numbers.charAt(str.length()))){
+            if (numbers.length()>str.length() && str.equals(numbers.substring(0,str.length()))  && IsNumber(numbers.charAt(str.length()))){
                 return numbers.substring(str.length());
             }
         }
 
-        throw new Exception("Incorrect numbers format");
+        throw new Exception("Incorrect numbers format (incorrect delimiter)");
     }
-    private String addNumberToNumberList(String numbers, List<Integer> numberList){
+    private String addNumberToNumberList(String numbers, List<Integer> numberList) throws Exception {
         int position = 0;
         while (IsNumber(numbers.charAt(position++))) {
             if(position==numbers.length()) {
                 position+=1;
                 break;
             }
+        }
+        if (position<2){
+            throw new Exception("Incorrect numbers format (maybe more than one delimiter)");
         }
         numberList.add(Integer.parseInt(numbers.substring(0,position-1)));
 
@@ -104,7 +103,7 @@ class StringCalculator{
                     newSeparator.append(numbers.charAt(position-1));
                 Separators.add(String.valueOf(newSeparator));
             }
-            else throw new Exception("Incorrect numbers format");
+            else throw new Exception("Incorrect initialisation delimiters format");
         }
     }
 
@@ -121,6 +120,20 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println(new StringCalculator().add("//[*][%]\n1*2%3"));
         System.out.println(new StringCalculator().add("//[**][***]\n1**2***3"));
-        System.out.println(new StringCalculator().add("1000,-999,-1001"));
+        try {
+            System.out.println(new StringCalculator().add("1000,-999,-1001"));
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+        /*try {
+            System.out.println(new StringCalculator().add("1000,999,"));
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }*/
+        System.out.println(new StringCalculator().add("1000,999,\n1000"));
+
     }
 }
