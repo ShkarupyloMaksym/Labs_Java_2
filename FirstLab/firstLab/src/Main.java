@@ -7,6 +7,7 @@ class StringCalculator{
         SeparatorsInit();
     }
     public int add(String numbers) throws Exception {
+        SeparatorsInit();
         if (numbers.isEmpty()) return 0;
 
         List<Integer> number = new ArrayList<>();
@@ -127,7 +128,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         StringCalculator calculator = new StringCalculator();
         String[][] questions = {
                 {"","1", "1,2"},
@@ -147,5 +148,9 @@ public class Main {
             }
             System.out.println("________________________________________");
         }
+
+        System.out.println("Some my examples:");
+        String question = "1,2*3";
+        System.out.println(question+" = "+calculator.add(question));
     }
 }
