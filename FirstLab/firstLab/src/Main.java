@@ -46,6 +46,15 @@ class StringCalculator{
         }
     }
 
+    boolean isSeparator(String numbers){
+        for (String str: Separators){
+            if (numbers.length()>str.length() && str.equals(numbers.substring(0,str.length()))  && IsNumber(numbers.charAt(str.length()))){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean IsNumber(char chr){
         return Character.isDigit(chr) || chr == '-' || chr == '\0';
     }
@@ -62,6 +71,11 @@ class StringCalculator{
     private String addNumberToNumberList(String numbers, List<Integer> numberList) throws Exception {
         int position = 0;
         while (IsNumber(numbers.charAt(position++))) {
+            if (isSeparator(numbers.substring(position))){
+                position++;
+                break;
+            }
+
             if(position==numbers.length()) {
                 position+=1;
                 break;
@@ -130,6 +144,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         StringCalculator calculator = new StringCalculator();
+        /*
         String[][] questions = {
                 {"","1", "1,2"},
                 {"1,2,3,4,5"},
@@ -148,9 +163,9 @@ public class Main {
             }
             System.out.println("________________________________________");
         }
-
+        */
         System.out.println("Some my examples:");
-        String question = "1,2*3";
+        String question = "//[***][*][**][123]\n2*2***21232,";
         System.out.println(question+" = "+calculator.add(question));
     }
 }
